@@ -2,9 +2,9 @@ import { Slot } from '@radix-ui/react-slot';
 import { clsx } from 'clsx'
 import { DeviceMobile, House, List, Newspaper, UserCircle, UsersThree, X } from 'phosphor-react';
 import React, { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode, useState } from 'react'
-import { Logo } from '../logo';
-import { Heading } from './Heading';
-import { Text } from './Text';
+import { Logo } from '../../logo';
+import { Heading } from '../Heading/Heading';
+import { Text } from '../Text/Text';
 
 export interface PageLayoutRootProps {
     children: ReactNode;
@@ -36,8 +36,8 @@ const PageLayoutHeader = (props: PageLayoutHeaderProps) => {
             <div className={'flex flex-row w-screen h-[10%] fixed top-0 left-0 bg-slowpoke-pink-900 justify-between items-center px-6 py-[22px]'} >
                 {
                     active ?
-                    <div className='flex flex-row gap-4 items-center' onClick={setActive}>
-                        <List size={'32px'} /> <Logo className='w-8 h-8' /> <Heading size='sm'>The Slowbros</Heading>
+                    <div className='flex flex-row gap-4 items-center'>
+                        <List size={'32px'} onClick={setActive}/> <Logo className='w-8 h-8' /> <Heading size='sm'>The Slowbros</Heading>
                     </div>
                     :
                     <div className='flex flex-row gap-4 items-center'>
