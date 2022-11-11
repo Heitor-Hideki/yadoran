@@ -1,16 +1,11 @@
-import { PageLayout, PageLayoutRootProps } from './PageLayout'
+import { PageLayout, PageLayoutProps } from './PageLayout'
 import { Meta, StoryObj } from '@storybook/react'
 
 export default {
     title: 'Components/PageLayout',
-    component: PageLayout.Root,
+    component: PageLayout,
     args: {
-        children: [
-            <>
-                <PageLayout.Header />
-                <PageLayout.Navbar />
-            </>
-        ]
+        children: []
     },
     argTypes: {
         children: {
@@ -19,19 +14,8 @@ export default {
             }
         },
     }
-} as Meta<PageLayoutRootProps>
+} as Meta<PageLayoutProps>
 
-export const Default: StoryObj<PageLayoutRootProps> = {}
-
-// export const ActiveNavbar:  StoryObj<PageLayoutRootProps> = {
-//     args: {
-//         children: [
-//             <>
-//                 <PageLayout.Header />
-//                 <PageLayout.Navbar />
-//             </>
-//         ]
-//     }
-// } 
+export const Default: StoryObj<PageLayoutProps> = {}
 
 

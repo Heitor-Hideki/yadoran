@@ -1,7 +1,7 @@
 import { Heading } from "../../src/components/Heading/Heading";
 import { Text } from "../../src/components/Text/Text";
 import { TextInput } from "../../src/components/TextInput/TextInput";
-import { Envelope, Lock } from 'phosphor-react';
+import { Envelope, Lock, User } from 'phosphor-react';
 import { Logo } from "../../src/logo";
 import { Checkbox } from "../../src/components/Checkbox/Checkbox";
 import { Button } from "../../src/components/Button/Button";
@@ -20,7 +20,7 @@ export default function SignUpPage () {
           <Text className='font-semibold'>Nome completo</Text>
           <TextInput.Root>
             <TextInput.Icon>
-              <Envelope />
+              <User />
             </TextInput.Icon>
             <TextInput.Input type='email' id='email' placeholder='Digite seu nome completo'/>
           </TextInput.Root>
