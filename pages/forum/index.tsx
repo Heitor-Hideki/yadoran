@@ -1,10 +1,10 @@
 import { Heading } from "@components/Heading/Heading";
 import { PageLayout } from "@components/PageLayout/PageLayout";
-import { House } from "phosphor-react";
+import { UsersThree } from "phosphor-react";
 
 export default function SignUpPage () {
   return (
-    <PageLayout PageIcon={<House size={32}/>} PageName={'Home'}>
+    <PageLayout PageIcon={<UsersThree size={'32px'}/>} PageName={'Forum'}>
     </PageLayout>
   )
 }

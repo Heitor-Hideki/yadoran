@@ -1,39 +1,52 @@
 import { DeviceMobile, House, Newspaper, UsersThree } from 'phosphor-react';
 import { Text } from '../Text/Text';
+import Link from 'next/link'
+import { useRouter } from 'next/router';
 
 export interface NavbarProps {
     active: boolean;
 }
 
 export function Navbar ({ active }: NavbarProps){
+    const router = useRouter()
+
     return (
         <>
             {
                 active ? 
-                <div className='flex flex-col w-[400px] h-[90%] fixed left-0 top-[10%] bg-slowpoke-pink-800 items-center'>
+                <div className='flex flex-col w-[400px] h-[90%] absolute left-[-400px] top-[10%] bg-slowpoke-pink-800 items-center duration-300 ease-out transition-all translate-x-full'>
                     <nav>
                     <ul className='flex flex-col mt-8 gap-8 items-center'>
-                            <li className='flex flex-row gap-8 items-center'>
-                                <House size={'24px'}/>
-                                <Text size='lg'>Home</Text>
+                            <li className={router.route.includes("home")? '' : ''}>
+                                <Link href={`/home`} onClick={() => router.push(`/home`)} className='flex flex-row gap-8 items-center'>
+                                    <House size={'24px'}/>
+                                    <Text size='lg'>Home</Text>
+                                </Link>
                             </li>
-                            <li className='flex flex-row gap-8 items-center'>
-                                <UsersThree size={'24px'}/>
-                                <Text size='lg'>Forum</Text>
+                            <li>
+                                <Link href={`/forum`} onClick={() => router.push(`/forum`)} className='flex flex-row gap-8 items-center'>
+                                    <UsersThree size={'24px'}/>
+                                    <Text size='lg'>Forum</Text>
+                                </Link>
                             </li>
-                            <li className='flex flex-row gap-8 items-center'>
-                                <DeviceMobile size={'24px'}/>
-                                <Text size='lg'>Pokedex</Text>
+                            <li>
+                                <Link href={`/pokedex`} onClick={() => router.push(`/pokedex`)} className='flex flex-row gap-8 items-center'>
+                                    <DeviceMobile size={'24px'}/>
+                                    <Text size='lg'>Pokedex</Text>
+                                </Link>
                             </li>
-                            <li className='flex flex-row gap-8 items-center'>
-                                <Newspaper size={'24px'}/>
-                                <Text size='lg'>News</Text>
+                            <li>
+                                <Link href={`/news`} onClick={() => router.push(`/news`)} className='flex flex-row gap-8 items-center'>
+                                    <Newspaper size={'24px'}/>
+                                    <Text size='lg'>News</Text>
+                                </Link>
                             </li>
                         </ul>
                     </nav>
                 </div> 
                 :
-                ''
+                <div className='flex flex-col w-[400px] h-[90%] absolute left-[-400px] top-[10%] bg-slowpoke-pink-800 items-center duration-300 ease-out transition-all invisible'>
+                </div> 
             }
         </>
     )

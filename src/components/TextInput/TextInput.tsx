@@ -5,6 +5,7 @@ import { InputHTMLAttributes, ReactNode } from 'react'
 export interface TextInputInputProps extends InputHTMLAttributes<HTMLInputElement>{}
 
 export interface TextInputRootProps {
+    className?: string,
     children: ReactNode;
 }
 
@@ -14,8 +15,12 @@ export interface TextInputIconProps {
 
 function TextInputRoot (props: TextInputRootProps){
     return (
-        <div className=
-        'flex items-center gap-3 py-4 px-3 h-12 rounded bg-slowpoke-white-900 focus-within:ring-2 ring-slowpoke-pink-900 outline-none'
+        <div className={
+            clsx(
+                'flex items-center gap-3 py-4 px-3 h-12 rounded bg-slowpoke-white-900 focus-within:ring-2 ring-slowpoke-pink-900 outline-none',
+                props.className
+            )
+        }
         >
             {props.children}
         </div>
