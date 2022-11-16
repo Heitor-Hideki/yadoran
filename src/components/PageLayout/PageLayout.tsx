@@ -1,10 +1,11 @@
 import { Header } from '@components/Header/Header';
 import { Navbar } from '@components/Navbar/Navbar';
 import { PageHeading } from '@components/PageHeading';
-import { House } from 'phosphor-react';
+import { clsx } from 'clsx'
 import React, { ReactNode, useState } from 'react'
 
 export interface PageLayoutProps {
+    className?: string,
     children: ReactNode;
     PageIcon: ReactNode;
     PageName: string;
@@ -18,8 +19,10 @@ export function PageLayout (props: PageLayoutProps){
     }
 
     return (
-        <div className=
-        'flex h-screen w-screen bg-slowpoke-beige-800'
+        <div className={clsx(
+            'flex h-full w-full bg-slowpoke-beige-800',
+            props.className
+        )}
         >
             <Header active={active} setActive={setActive} />
             <Navbar active={active} />

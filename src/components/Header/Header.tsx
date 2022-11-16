@@ -17,12 +17,12 @@ export const Header = ({ setActive, active }: HeaderProps) => {
             <div className={'flex flex-row w-screen h-[10%] fixed top-0 left-0 bg-slowpoke-pink-900 justify-between items-center px-6 py-[22px]'} >
                 {
                     !active ?
-                    <div className='flex flex-row gap-4 items-center'>
-                        <List size={'32px'} onClick={onClickHandler} className='cursor-pointer'/> <Logo className='w-8 h-8' /> <Heading size='sm'>The Slowbros</Heading>
+                    <div className='flex flex-row gap-4 items-center justify-start'>
+                        <List size={'32px'} onClick={onClickHandler} className='cursor-pointer hover:text-slowpoke-white-900'/> <Logo className='w-12 h-12' /> <Heading size='md'>The Slowbros</Heading>
                     </div>
                     :
                     <div className='flex flex-row gap-4 items-center'>
-                        <X size={'32px'} onClick={onClickHandler} className='cursor-pointer'/> <Logo className='w-8 h-8' /> <Heading size='sm'>The Slowbros</Heading>
+                        <X size={'32px'} onClick={onClickHandler} className='cursor-pointer hover:text-slowpoke-white-900'/> <Logo className='w-12 h-12' /> <Heading size='md'>The Slowbros</Heading>
                     </div>
                 }
                 <div className='flex flex-row items-center'>

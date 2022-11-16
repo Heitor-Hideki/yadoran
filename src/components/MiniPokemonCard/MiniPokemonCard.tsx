@@ -1,5 +1,4 @@
 import { Text } from '@components/Text/Text';
-import { Slot } from '@radix-ui/react-slot';
 import React, { ReactNode } from 'react'
 import { Heading } from '../Heading/Heading';
 
@@ -18,7 +17,7 @@ export interface MiniPokemonCardInfosProps{
 
 const MiniPokemonCardRoot = (props: MiniPokemonCardRootProps) => {
     return (
-            <div className={'flex flex-row w-[400px] h-[120px] rounded px-8 py-7 items-center justify-start gap-8 bg-slowpoke-pink-900'}>
+            <div className={'flex flex-row w-[400px] h-[120px] rounded px-8 py-7 items-center justify-start gap-8 bg-slowpoke-pink-900 overflow-hidden hover:bg-slowpoke-pink-800'}>
                 {props.children}
             </div>
     )
@@ -26,14 +25,14 @@ const MiniPokemonCardRoot = (props: MiniPokemonCardRootProps) => {
 
 const MiniPokemonCardIcon = (props: MiniPokemonCardIconProps) => {
     return (
-        <img className='w-8 h-8 text-slowpoke-black-900' src={props.pokemonURL} alt='pokemon sprite'>
+        <img className=' text-slowpoke-black-900' src={props.pokemonURL} alt='pokemon sprite'>
         </img> 
     )
 }
 
 const MiniPokemonCardInfos = (props: MiniPokemonCardInfosProps) => {
     return (
-            <div className='flex flex-col w-full h-full'>
+            <div className='flex flex-col w-full h-full capitalize'>
                 <Heading size='md'>{props.pokemonName}</Heading>
                 <Text size='md'>#{props.nationalDex}</Text>
             </div>

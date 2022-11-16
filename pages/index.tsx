@@ -7,7 +7,14 @@ import { Envelope, Lock } from 'phosphor-react';
 import { Checkbox } from '../src/components/Checkbox/Checkbox'
 import { Button } from '../src/components/Button/Button'
 
-export default function Home() {
+export default function LoginPage() {
+  const onSubmitHandler = (event) => {
+    event.preventDefault()
+    return (
+      console.log("🚀 ~ file: index.tsx ~ line 14 ~ onSubmitHandler ~ onSubmitHandler")
+    )
+  }
+
   return (
     <div className='w-screen h-screen bg-slowpoke-beige-800 flex items-center justify-center text-slowpoke-black-900 flex-col'>
       <header className='flex flex-col items-center'>
@@ -42,7 +49,7 @@ export default function Home() {
           <Text size='sm'>Manter login</Text>
         </label>
 
-        <Button type='submit' className='mt-4'>
+        <Button type='submit' className='mt-4' onSubmit={onSubmitHandler}>
           <Text size='sm'>
             Login
           </Text>

@@ -17,12 +17,12 @@ export default function SignUpPage () {
 
       <form className='flex flex-col items-stretch mt-8 w-full max-w-[400px] gap-6'>
         <label htmlFor='email' className='flex flex-col gap-3'>
-          <Text className='font-semibold'>Nome completo</Text>
+          <Text className='font-semibold'>Username</Text>
           <TextInput.Root>
             <TextInput.Icon>
               <User />
             </TextInput.Icon>
-            <TextInput.Input type='email' id='email' placeholder='Digite seu nome completo'/>
+            <TextInput.Input type='text' id='username' placeholder='Digite seu nome de usuário'/>
           </TextInput.Root>
         </label>
 

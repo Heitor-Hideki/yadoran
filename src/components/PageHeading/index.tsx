@@ -21,7 +21,7 @@ function PageHeadingIcon (props: PageHeadingIconProps){
     )
 }
 
-function PageHeadingRoot ({ size = "md", children, asChild , className}: PageHeadingProps) {
+function PageHeadingRoot ({ size = "lg", children, asChild , className}: PageHeadingProps) {
     const Comp = asChild ? Slot : 'h2'
 
     return (
