@@ -321,7 +321,6 @@ class PokemonStore {
         console.log("error: ", error)
     }
 }
-
   @action 
   fetchPokemons = async (page) => {
     try {
@@ -339,6 +338,15 @@ class PokemonStore {
       })
     } catch (error) {
       console.log("🚀 ~ file: pokemonStore.ts ~ line 340 ~ PokemonStore ~ fetchPokemons= ~ error", error)
+    }
+  }
+
+  @action 
+  fetchFlavor = async (name) => {
+    try {
+      ('https://pokeapi.co/api/v2/pokemon-species/{id or name}')
+    } catch (error) {
+      console.log("🚀 ~ file: pokemonStore.ts ~ line 349 ~ PokemonStore ~ fetchFlavor= ~ error", error)
     }
   }
 }

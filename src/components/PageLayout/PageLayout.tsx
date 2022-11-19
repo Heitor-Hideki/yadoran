@@ -20,7 +20,7 @@ export function PageLayout (props: PageLayoutProps){
 
     return (
         <div className={clsx(
-            'flex h-full w-full bg-slowpoke-beige-800',
+            'flex min-w-screen min-h-screen bg-slowpoke-beige-800',
             props.className
         )}
         >

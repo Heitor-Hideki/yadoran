@@ -6,13 +6,13 @@ import { Logo } from '../src/logo'
 import { Envelope, Lock } from 'phosphor-react';
 import { Checkbox } from '../src/components/Checkbox/Checkbox'
 import { Button } from '../src/components/Button/Button'
+import { useRouter } from 'next/router';
 
 export default function LoginPage() {
-  const onSubmitHandler = (event) => {
-    event.preventDefault()
-    return (
-      console.log("🚀 ~ file: index.tsx ~ line 14 ~ onSubmitHandler ~ onSubmitHandler")
-    )
+  const router = useRouter()
+
+  const onSubmitHandler = () => {
+    router.push(`/home`)
   }
 
   return (

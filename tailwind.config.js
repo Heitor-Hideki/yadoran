@@ -22,7 +22,7 @@ module.exports = {
           100: '#585858',
         },
         'slowpoke-black':{
-          900: '#000'
+          900: '#252525'
         },
         'slowpoke-pink': {
           900: '#F090BC',

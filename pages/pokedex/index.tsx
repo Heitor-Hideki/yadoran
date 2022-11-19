@@ -14,7 +14,6 @@ import { Heading } from "@components/Heading/Heading";
 function PokedexPage () {
   const [page, setPage] = useState(0)
   const [pokemons, setPokemons] = useState<IPokemon[]>([])
-  const [loading, setLoading] = useState(false)
   const [notFound, setNotFound] = useState(false)
   const [filterTerm, setFilterTerm] = useState('')
 
@@ -32,14 +31,17 @@ function PokedexPage () {
     }
   },[fetchedPokemons])
 
-  const onchangeHandler = (event) => {
+  useEffect(() => {
     setNotFound(false)
+    if (pokemons.length === 0) {
+      setNotFound(true)
+    }
+  },[pokemons])
+
+  const onchangeHandler = (event) => {
     setFilterTerm(event.target.value)
     if (event.target.value.length === 0) {
       fetchPokemons(page)
-    }
-    if (pokemons.length === 0) {
-      setNotFound(true)
     }
   }
 
@@ -66,14 +68,10 @@ function PokedexPage () {
           onChange={onchangeHandler}
         />
 
-        {
-          loadingFetchPokemons &&
-          <Loading className="flex justify-center items-center mt-8"/>
-        }
-        {
-          !loadingFetchPokemons && !notFound &&
-          <>
-            <Pagination setPage={setPage} page={page} totalPages={totalPages} className='mt-8'/>
+        <>
+          <Pagination setPage={setPage} page={page} totalPages={totalPages} className='mt-8'/>
+          {
+            !loadingFetchPokemons && !notFound &&
             <div className="grid mt-8 gap-8 grid-cols-3">
               {
                 pokemons.map(pokemon => 
@@ -84,8 +82,12 @@ function PokedexPage () {
                 )
               }
             </div>
-          </>
-        }
+          }
+          {
+            loadingFetchPokemons &&
+            <Loading className="flex justify-center items-center mt-8"/>
+          }
+        </>
         {
           !loadingFetchPokemons && notFound &&
           <div className="flex flex-row justify-center items-center mt-8 gap-8">
