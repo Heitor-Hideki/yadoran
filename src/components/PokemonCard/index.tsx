@@ -14,6 +14,7 @@ export interface PokemonCardImageProps{
 export interface PokemonCardInfosProps{
     nationalDex: number,
     form: string,
+    flavor_text: string,
 }
 
 export interface PokemonCardHeaderProps{
@@ -24,7 +25,7 @@ export interface PokemonCardHeaderProps{
 
 const PokemonCardRoot = (props: PokemonCardRootProps) => {
     return (
-            <div className={'flex flex-row w-[500px] h-[700px] rounded p-6'}>
+            <div className={'flex flex-col w-[500px] h-[700px] rounded p-6 bg-slowpoke-pink-800 border-2 border-b-slowpoke-white-900'}>
                 {props.children}
             </div>
     )
@@ -34,7 +35,7 @@ const PokemonCardHeader = (props: PokemonCardHeaderProps) => {
     return (
             <div className='flex flex-row w-full justify-between rounded'>
                 <Heading size='md'>{props.pokemonName}</Heading>
-                <div className='flex flex-row gap-12'>
+                <div className='flex flex-row gap-3'>
                     {
                         props.secondaryType &&
                         <TypeBox type={props.secondaryType}/>
@@ -47,16 +48,16 @@ const PokemonCardHeader = (props: PokemonCardHeaderProps) => {
 
 const PokemonCardImage = (props: PokemonCardImageProps) => {
     return (
-        <img className='w-[350px] h-[200px] rounded' src={props.pokemonURL} alt='pokemon sprite' />
+        <img className='w-[452px] h-[250px] rounded mt-6' src={props.pokemonURL} alt='pokemon sprite' />
     )
 }
 
 const PokemonCardInfos = (props: PokemonCardInfosProps) => {
     return (
-            <div className='flex flex-col w-full h-full capitalize overflow-hidden'>
+            <div className='flex flex-col w-full h-full capitalize overflow-hidden mt-8'>
                 <Heading size='md'>#{props.nationalDex}</Heading>
                 <Heading size='md'>{props.form}</Heading>
-                <Text size='md'>#{props.nationalDex}</Text>
+                <Text size='md'>{props.flavor_text}</Text>
             </div>
     )
 }

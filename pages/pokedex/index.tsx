@@ -10,38 +10,43 @@ import { toJS } from "mobx";
 import { Loading } from "@components/Loading";
 import { IPokemon } from "@stores/pokemonStore";
 import { Heading } from "@components/Heading/Heading";
+import { PokemonCard } from "@components/PokemonCard";
+import api from '../../src/services/api';
+import axios from "axios";
 
-function PokedexPage () {
+function PokedexPage (props) {
   const [page, setPage] = useState(0)
   const [pokemons, setPokemons] = useState<IPokemon[]>([])
   const [notFound, setNotFound] = useState(false)
   const [filterTerm, setFilterTerm] = useState('')
+  const [showCard, setShowCard] = useState(false)
 
+  const pokeStats =  props.fetched.map(item => JSON.parse(item))
+  
   const {
-    pokemonStore: {fetchPokemons, fetchedPokemons, loadingFetchPokemons, totalPages, searchPokemon}
+    pokemonStore: {fetchPokemons, fetchedPokemons, loadingFetchPokemons, totalPages, searchPokemon},
+    speciesStore: { species, fetchSpecies, loadingSpecies }
   } = useStore()
 
   useEffect(() => {
-    fetchPokemons(page)
+    fetchPokemons()
   },[page])
 
   useEffect(() => {
-    if (!loadingFetchPokemons){
-      setPokemons(fetchedPokemons)
-    }
+    setPokemons(fetchedPokemons)
   },[fetchedPokemons])
 
-  useEffect(() => {
-    setNotFound(false)
-    if (pokemons.length === 0) {
-      setNotFound(true)
-    }
-  },[pokemons])
+  // useEffect(() => {
+  //   setNotFound(false)
+  //   if (pokemons.length === 0) {
+  //     setNotFound(true)
+  //   }
+  // },[pokemons])
 
   const onchangeHandler = (event) => {
     setFilterTerm(event.target.value)
     if (event.target.value.length === 0) {
-      fetchPokemons(page)
+      fetchPokemons()
     }
   }
 
@@ -53,11 +58,25 @@ function PokedexPage () {
   const filteredData = (filterTerm) => (
     fetchedPokemons.filter((item) =>
         item.name.toLowerCase().includes(filterTerm.toLowerCase()) ||
-        item.abilities[0].ability.name.toLowerCase().includes(filterTerm.toLowerCase()) ||
-        item.types[0].type.name.toLowerCase().includes(filterTerm.toLowerCase()) ||
-        item.moves[0].move.name.toLowerCase().includes(filterTerm.toLowerCase())
+        item.abilities.some((abilities) => 
+          abilities.ability.name.toLowerCase().includes(filterTerm.toLowerCase()) 
+        ) ||
+        item.types.some((types) => 
+        types.type.name.toLowerCase().includes(filterTerm.toLowerCase()) 
+        ) ||
+          item.moves.some((moves) => 
+          moves.move.name.toLowerCase().includes(filterTerm.toLowerCase()) 
+        )
     )
   )
+
+  // const onMouseOverHandler = (name) => {
+  //   fetchSpecies(name)
+  //   console.log(toJS(species[0].flavor_text_entries[0].flavor_text))
+  // }
+
+  useEffect(() => {
+  }, [species])
 
   return (
     <PageLayout PageIcon={<DeviceMobile size={32}/>} PageName={'Pokedex'}>
@@ -67,7 +86,7 @@ function PokedexPage () {
           value={filterTerm} 
           onChange={onchangeHandler}
         />
-
+      {/* onMouseOver={() => onMouseOverHandler(pokemon.name)} */}
         <>
           <Pagination setPage={setPage} page={page} totalPages={totalPages} className='mt-8'/>
           {
@@ -75,12 +94,19 @@ function PokedexPage () {
             <div className="grid mt-8 gap-8 grid-cols-3">
               {
                 pokemons.map(pokemon => 
-                  <MiniPokemonCard.Root key={pokemon.id}>
+                  <MiniPokemonCard.Root key={pokemon.id} >
                     <MiniPokemonCard.Icon pokemonURL={pokemon.sprites.front_default}/>
                     <MiniPokemonCard.Infos pokemonName={pokemon.name} nationalDex={pokemon.id}/>
                   </MiniPokemonCard.Root>
                 )
               }
+              {/* {
+                <PokemonCard.Root>
+                  <PokemonCard.Header pokemonName="nasus" primaryType="gay" secondaryType='dog'/>
+                  <PokemonCard.Image pokemonURL="https://ddragon.leagueoflegends.com/cdn/img/champion/splash/Nasus_0.jpg"/>
+                  <PokemonCard.Infos nationalDex={12} form='alola' flavor_text="species.flavor_text_entries[0].flavor_text"/> 
+                </PokemonCard.Root>
+              } */}
             </div>
           }
           {
@@ -96,6 +122,30 @@ function PokedexPage () {
         }
     </PageLayout>
   )
+}
+
+export const getStaticProps = async () => {
+  const res = await api.get('v2/pokemon?limit=1154&offset=0');
+  const data = res.data;
+
+  const promises = data.results.map(async (pokemon:IPokemon) => {
+    const param = pokemon.url.replace('https://pokeapi.co/api/', "")
+    return await api.get(param);
+  });
+
+  const pokemons = await Promise.all(promises);
+  const stringfy = pokemons.map(item => JSON.stringify(item.data))
+
+  // const second = 1
+  // const minute = 60*second
+  // const hour = 60*minute
+  // const day = 24*hour
+  // const year = 365*day
+
+  return {
+    props: {fetched: stringfy},
+    // revalidate: 30*days,
+  }
 }
 
 export default observer(PokedexPage)

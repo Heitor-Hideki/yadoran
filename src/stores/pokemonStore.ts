@@ -1,4 +1,5 @@
 import { observable, action, makeAutoObservable, runInAction } from 'mobx';
+import api from '../services/api';
 
 interface IAbilities {
   is_hidden: boolean;
@@ -266,23 +267,39 @@ export interface IPokemon {
   order: number,
   weight: number,
   location_area_encounters: string,
-  abilities: IAbilities,
-  forms: IForms,
-  game_indices: IGame_indices,
-  held_items: IHeld_items,
-  moves: IMoves,
-  past_types: IPast_types,
+  abilities: IAbilities[],
+  forms: IForms[],
+  game_indices: IGame_indices[],
+  held_items: IHeld_items[],
+  moves: IMoves[],
+  past_types: IPast_types[],
   sprites: ISprites,
   species: ISpecies,
-  stats: IStats,
-  types: ITypes,
+  stats: IStats[],
+  types: ITypes[],
 }
+
+// export const getStaticProps = async () => {
+//   const res = await api.get('v2/pokemon?limit=30&offset=0');
+//   const data = await res.json();
+//   console.log("🚀 ~ file: pokemonStore.ts ~ line 285 ~ getStaticProps ~ data", data)
+
+//   const promises = data.results.map(async (pokemon:IPokemon) => {
+//     return await fetch(pokemon.url)
+//   })
+//   const pokemons = await Promise.all(promises);
+
+//   return {
+//     props: {fetched: pokemons}
+//   }
+// }
 
 class PokemonStore {
   @observable fetchedPokemons: IPokemon[] = [];
   @observable loadingFetchPokemons: boolean = true;
   @observable notFound: boolean = false;
   @observable totalPages: number = 1; 
+  @observable species: ISpecies[] = []
 
   constructor() {
       makeAutoObservable(this);
@@ -320,13 +337,19 @@ class PokemonStore {
     } catch (error) {
         console.log("error: ", error)
     }
-}
+  }
+
   @action 
-  fetchPokemons = async (page) => {
+  fetchPokemons = async () => {
+  //   runInAction(() => {
+  //           this.fetchedPokemons = fetched
+  //           this.loadingFetchPokemons = false
+  //           console.log("NBBVVBVB", fetched)
+  //   })
     try {
       this.loadingFetchPokemons = true
       this.notFound = false
-      const data = await this.getPokemons(30, 30 * page);
+      const data = await this.getPokemons(30, 30 * 1);
       const promises = data.results.map(async (pokemon:IPokemon) => {
         return await this.getPokemonData(pokemon.url)
       })
@@ -340,15 +363,7 @@ class PokemonStore {
       console.log("🚀 ~ file: pokemonStore.ts ~ line 340 ~ PokemonStore ~ fetchPokemons= ~ error", error)
     }
   }
-
-  @action 
-  fetchFlavor = async (name) => {
-    try {
-      ('https://pokeapi.co/api/v2/pokemon-species/{id or name}')
-    } catch (error) {
-      console.log("🚀 ~ file: pokemonStore.ts ~ line 349 ~ PokemonStore ~ fetchFlavor= ~ error", error)
-    }
-  }
+  // }
 }
 
 export default PokemonStore

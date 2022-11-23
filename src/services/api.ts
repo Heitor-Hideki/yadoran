@@ -1,7 +1,7 @@
-// import axios from 'axios';
+import axios from 'axios';
 
-// const api = axios.create({
-//   baseURL: 'https://backend-api.dev.webropay.com.br/',
-// });
+const api = axios.create({
+  baseURL: 'https://pokeapi.co/api/',
+});
 
-// export default api;
+export default api;

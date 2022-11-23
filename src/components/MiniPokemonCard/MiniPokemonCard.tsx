@@ -1,8 +1,8 @@
 import { Text } from '@components/Text/Text';
-import React, { ReactNode } from 'react'
+import React, { AllHTMLAttributes, ReactNode } from 'react'
 import { Heading } from '../Heading/Heading';
 
-export interface MiniPokemonCardRootProps{
+export interface MiniPokemonCardRootProps extends AllHTMLAttributes<HTMLDivElement>{
     children: ReactNode,
 }
 
@@ -17,7 +17,7 @@ export interface MiniPokemonCardInfosProps{
 
 const MiniPokemonCardRoot = (props: MiniPokemonCardRootProps) => {
     return (
-            <div className={'flex flex-row w-[400px] h-[120px] rounded px-8 py-7 items-center justify-start gap-8 bg-slowpoke-pink-900 overflow-hidden hover:bg-slowpoke-pink-800'}>
+            <div className={'flex flex-row w-[400px] h-[120px] rounded px-8 py-7 items-center justify-start gap-8 bg-slowpoke-pink-900 overflow-hidden hover:bg-slowpoke-pink-800'} {...props}>
                 {props.children}
             </div>
     )
