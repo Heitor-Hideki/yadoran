@@ -26,7 +26,7 @@ export function PageLayout (props: PageLayoutProps){
         >
             <Header active={active} setActive={setActive} />
             <Navbar active={active} />
-            <div className='w-screen mt-[5%] pt-8 pl-8 pr-8' onClick={onClickHandler}>
+            <div className='w-screen mt-[100px] pt-8 pl-8 pr-8' onClick={onClickHandler}>
                 <div className='flex flex-row items-center justify-start gap-3'>
                     <PageHeading.Icon>
                         {props.PageIcon}

@@ -14,7 +14,7 @@ export const Header = ({ setActive, active }: HeaderProps) => {
     }
 
     return (
-            <div className={'flex flex-row w-screen h-[10%] fixed top-0 left-0 bg-slowpoke-pink-900 justify-between items-center px-6 py-[22px]'} >
+            <div className={'flex flex-row w-screen h-[100px] fixed top-0 left-0 bg-slowpoke-pink-900 justify-between items-center px-6 py-[22px]'} >
                 {
                     !active ?
                     <div className='flex flex-row gap-4 items-center justify-start'>

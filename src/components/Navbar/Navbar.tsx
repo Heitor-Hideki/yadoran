@@ -14,7 +14,7 @@ export function Navbar ({ active }: NavbarProps){
         <>
             {
                 active ? 
-                <div className='flex flex-col w-[400px] h-[90%] absolute left-[-400px] top-[10%] bg-slowpoke-pink-800 items-center duration-300 ease-out transition-all translate-x-full'>
+                <div className='flex flex-col w-[400px] h-[90%] absolute left-[-400px] top-[100px] bg-slowpoke-pink-800 items-center duration-300 ease-out transition-all translate-x-full'>
                     <nav>
                     <ul className='flex flex-col mt-8 gap-8 items-center'>
                             <li className={router.route.includes("home") ? '' : ''}>
@@ -45,7 +45,7 @@ export function Navbar ({ active }: NavbarProps){
                     </nav>
                 </div> 
                 :
-                <div className='flex flex-col w-[400px] h-[90%] absolute left-[-400px] top-[10%] bg-slowpoke-pink-800 items-center duration-300 ease-out transition-all invisible'>
+                <div className='flex flex-col w-[400px] h-[90%] absolute left-[-400px] top-[100px] bg-slowpoke-pink-800 items-center duration-300 ease-out transition-all invisible'>
                 </div> 
             }
         </>

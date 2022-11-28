@@ -1,7 +1,7 @@
 import { observable, action, makeAutoObservable, runInAction } from 'mobx';
 import api from '../services/api';
 
-interface ISpecies {
+export interface ISpecies {
     id: number,
     name: string,
     order: number,
@@ -149,7 +149,6 @@ interface ISpecies {
             this.loadingSpecies = false
         })
       } catch (error) {
-        console.log("🚀 ~ file: pokemonStore.ts ~ line 349 ~ PokemonStore ~ fetchFlavor= ~ error", error)
       }
     }
   }

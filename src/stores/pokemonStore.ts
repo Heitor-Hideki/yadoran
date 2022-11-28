@@ -80,7 +80,7 @@ interface ISprites {
       front_shiny: string,
       front_shiny_female: string|null
     },
-    official_artwork: {
+    'official-artwork': {
       front_default: string,
     }
   },
@@ -279,27 +279,14 @@ export interface IPokemon {
   types: ITypes[],
 }
 
-// export const getStaticProps = async () => {
-//   const res = await api.get('v2/pokemon?limit=30&offset=0');
-//   const data = await res.json();
-//   console.log("🚀 ~ file: pokemonStore.ts ~ line 285 ~ getStaticProps ~ data", data)
-
-//   const promises = data.results.map(async (pokemon:IPokemon) => {
-//     return await fetch(pokemon.url)
-//   })
-//   const pokemons = await Promise.all(promises);
-
-//   return {
-//     props: {fetched: pokemons}
-//   }
-// }
-
 class PokemonStore {
   @observable fetchedPokemons: IPokemon[] = [];
   @observable loadingFetchPokemons: boolean = true;
   @observable notFound: boolean = false;
   @observable totalPages: number = 1; 
   @observable species: ISpecies[] = []
+  @observable searchPokemons: {} = {};
+  @observable loadingSearchPokemons: boolean = true;
 
   constructor() {
       makeAutoObservable(this);
@@ -308,23 +295,14 @@ class PokemonStore {
   @action 
   searchPokemon = async (pokemon: any) => {
     try {
+        this.loadingSearchPokemons = true
         let url = `https://pokeapi.co/api/v2/pokemon/${pokemon}`
         const response = await fetch(url)
-        return await response.json()
-  
+        runInAction(() => {
+          this.searchPokemons = response
+          this.loadingSearchPokemons = false
+        })
     } catch (error) {
-        console.log("error: ", error)
-    }
-  }
-  
-  @action 
-  getPokemons = async (limit = 30, offset = 0) => {
-    try {
-        let url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
-        const response = await fetch(url)
-        return await response.json()
-    } catch (error) {
-        console.log("error: ", error)
     }
   }
   
@@ -335,22 +313,15 @@ class PokemonStore {
         return await response.json()
   
     } catch (error) {
-        console.log("error: ", error)
     }
   }
 
   @action 
-  fetchPokemons = async () => {
-  //   runInAction(() => {
-  //           this.fetchedPokemons = fetched
-  //           this.loadingFetchPokemons = false
-  //           console.log("NBBVVBVB", fetched)
-  //   })
+  fetchPokemons = async (data, page) => {
+    this.loadingFetchPokemons = true
     try {
-      this.loadingFetchPokemons = true
-      this.notFound = false
-      const data = await this.getPokemons(30, 30 * 1);
-      const promises = data.results.map(async (pokemon:IPokemon) => {
+      const chunk = data.results.slice(page*30, (page*30) + 30)
+      const promises = chunk.map(async (pokemon:IPokemon) => {
         return await this.getPokemonData(pokemon.url)
       })
       const results = await Promise.all(promises);
@@ -360,10 +331,27 @@ class PokemonStore {
         this.totalPages = Math.ceil(data.count / 30)
       })
     } catch (error) {
-      console.log("🚀 ~ file: pokemonStore.ts ~ line 340 ~ PokemonStore ~ fetchPokemons= ~ error", error)
     }
   }
-  // }
+
+  @action
+  searchBarAction = async (array, page) => {
+    this.loadingFetchPokemons = true
+    try {
+      const chunk = array.slice(page*30, (page*30) + 30)
+      const promises = chunk.map(async (pokemon:IPokemon) => {
+        return await this.getPokemonData(pokemon.url)
+      })
+      const results = await Promise.all(promises);
+      runInAction(() => {
+        this.fetchedPokemons = results
+        this.loadingFetchPokemons = false
+        this.totalPages = Math.ceil(array.length / 30)
+      })
+    } catch (error) {
+
+    }
+  }
 }
 
 export default PokemonStore
