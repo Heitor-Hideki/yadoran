@@ -1,6 +1,6 @@
-import { Header } from '@components/Header/Header';
-import { Navbar } from '@components/Navbar/Navbar';
-import { PageHeading } from '@components/PageHeading';
+import { Header } from 'components/Header/Header';
+import { Navbar } from 'components/Navbar/Navbar';
+import { PageHeading } from 'components/PageHeading';
 import { clsx } from 'clsx'
 import React, { ReactNode, useState } from 'react'
 

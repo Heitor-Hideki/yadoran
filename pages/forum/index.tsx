@@ -1,5 +1,5 @@
-import { Heading } from "@components/Heading/Heading";
-import { PageLayout } from "@components/PageLayout/PageLayout";
+import { Heading } from "components/Heading/Heading";
+import { PageLayout } from "components/PageLayout/PageLayout";
 import { UsersThree } from "phosphor-react";
 
 export default function SignUpPage () {

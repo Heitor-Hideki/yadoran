@@ -17,13 +17,13 @@
     "rootDir": ".",
     "baseUrl": "./src/",
     "paths": {
-      "@components/*": [
+      "components/*": [
         "components/*"
       ],
-      "@styles/*":[
+      "styles/*":[
         "styles/*"
       ],
-      "@stores/*": [
+      "stores/*": [
         "stores/*"
       ]},
     "jsx": "preserve",

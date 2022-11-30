@@ -1,6 +1,6 @@
-import { Button } from '@components/Button/Button';
-import { Heading } from '@components/Heading/Heading';
-import { Text } from '@components/Text/Text';
+import { Button } from 'components/Button/Button';
+import { Heading } from 'components/Heading/Heading';
+import { Text } from 'components/Text/Text';
 import { clsx } from 'clsx'
 import { ArrowLeft, ArrowRight } from 'phosphor-react';
 import React, { ReactNode, useState } from 'react'

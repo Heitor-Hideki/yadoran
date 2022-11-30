@@ -1,17 +1,17 @@
-import { MiniPokemonCard } from "@components/MiniPokemonCard/MiniPokemonCard";
-import { PageLayout } from "@components/PageLayout/PageLayout";
+import { MiniPokemonCard } from "components/MiniPokemonCard/MiniPokemonCard";
+import { PageLayout } from "components/PageLayout/PageLayout";
 import { Bug, DeviceMobile } from "phosphor-react";
-import { useStore } from '@stores/index';
-import { SearchBar } from "@components/SearchBar";
-import { Pagination } from "@components/Pagination";
+import { useStore } from 'stores/index';
+import { SearchBar } from "components/SearchBar";
+import { Pagination } from "components/Pagination";
 import { useEffect, useState } from "react";
 import { observer } from 'mobx-react';
 import { toJS } from "mobx";
-import { Loading } from "@components/Loading";
-import { IPokemon } from "@stores/pokemonStore";
-import { ISpecies } from "@stores/speciesStore";
-import { Heading } from "@components/Heading/Heading";
-import { PokemonCard } from "@components/PokemonCard";
+import { Loading } from "components/Loading";
+import { IPokemon } from "stores/pokemonStore";
+import { ISpecies } from "stores/speciesStore";
+import { Heading } from "components/Heading/Heading";
+import { PokemonCard } from "components/PokemonCard";
 import api from '../../src/services/api';
 import clsx from "clsx";
 
@@ -131,7 +131,7 @@ function PokedexPage (props) {
                 )
               }
               {
-                cardSpecies[0] && !loadingSpecies && cardPokemon[0].name && cardSpecies[0].flavor_text_entries &&
+                cardSpecies[0] && !loadingSpecies && cardPokemon[0] && cardPokemon[0].name && cardSpecies[0].flavor_text_entries &&
                 <PokemonCard.Root className={clsx(`fixed`, cardX, cardY)}>
                   <PokemonCard.Header pokemonName={cardPokemon[0].name} types={cardPokemon[0].types}/>
                   <PokemonCard.Image pokemonURL={cardPokemon[0].sprites.other["official-artwork"]["front_default"] !== null ? cardPokemon[0].sprites.other["official-artwork"]["front_default"] :  cardPokemon[0].sprites.front_default}/>

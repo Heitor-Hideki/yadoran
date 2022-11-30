@@ -1,5 +1,5 @@
 import { clsx } from 'clsx'
-import { Text } from '@components/Text/Text';
+import { Text } from 'components/Text/Text';
 
 export interface TypeBoxProps {
     className?: string;

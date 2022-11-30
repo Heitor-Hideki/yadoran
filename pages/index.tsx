@@ -7,13 +7,32 @@ import { Envelope, Lock } from 'phosphor-react';
 import { Checkbox } from '../src/components/Checkbox/Checkbox'
 import { Button } from '../src/components/Button/Button'
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react'
+import { useStore } from 'stores/index'
+import { observer } from 'mobx-react';
 
-export default function LoginPage() {
+function LoginPage() {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+
+  const {
+    userStore: { login, valid },
+    toastStore: { addToast, messages }
+  } = useStore()
+
   const router = useRouter()
 
-  const onSubmitHandler = () => {
-    router.push(`/home`)
+  const onSubmitHandler = (event) => {
+    event.preventDefault();
+    console.log(email, password)
+    login(email, password)
   }
+
+  useEffect(() => {
+    if (valid === true) {
+      router.push(`/home`)
+    }
+  }, [valid])
 
   return (
     <div className='w-screen h-screen bg-slowpoke-beige-800 flex items-center justify-center text-slowpoke-black-900 flex-col'>
@@ -30,7 +49,7 @@ export default function LoginPage() {
             <TextInput.Icon>
               <Envelope />
             </TextInput.Icon>
-            <TextInput.Input type='email' id='email' placeholder='Digite seu e-mail'/>
+            <TextInput.Input type='email' id='email' placeholder='Digite seu e-mail' value={email} onChange={(event) => setEmail(event.target.value)}/>
           </TextInput.Root>
         </label>
 
@@ -40,7 +59,7 @@ export default function LoginPage() {
             <TextInput.Icon>
               <Lock />
             </TextInput.Icon>
-            <TextInput.Input type='password' id='password' placeholder='Digite sua senha'/>
+            <TextInput.Input type='password' id='password' placeholder='Digite sua senha' value={password} onChange={(event) => setPassword(event.target.value)}/>
           </TextInput.Root>
         </label>
 
@@ -49,7 +68,7 @@ export default function LoginPage() {
           <Text size='sm'>Manter login</Text>
         </label>
 
-        <Button type='submit' className='mt-4' onSubmit={onSubmitHandler}>
+        <Button type='button' className='mt-4' onClick={onSubmitHandler}>
           <Text size='sm'>
             Login
           </Text>
@@ -58,12 +77,14 @@ export default function LoginPage() {
 
       <footer className='flex flex-col items-center gap-4 mt-8'>
         <Text asChild size='sm'>
-          <a href='' className='text-slowpoke-gray-100 underline hover:text-slowpoke-white-900'>Esqueceu sua senha?</a>
+          <a href={`/home`} onClick={() => router.push(`/home`)} className='text-slowpoke-gray-100 underline hover:text-slowpoke-white-900'>Esqueceu sua senha?</a>
         </Text>
         <Text asChild size='sm'>
-          <a href='' className='text-slowpoke-gray-100 underline hover:text-slowpoke-white-900'>Cadastre-se</a>
+          <a href={`/signup`} onClick={() => router.push(`/signup`)} className='text-slowpoke-gray-100 underline hover:text-slowpoke-white-900'>Cadastre-se</a>
         </Text>
       </footer>
     </div>
   )
 }
+
+export default observer(LoginPage)

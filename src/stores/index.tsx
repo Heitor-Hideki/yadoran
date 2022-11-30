@@ -4,6 +4,7 @@ import { createContext, useContext } from 'react';
 import PokemonStore from './pokemonStore';
 import ToastStore from './toastStore';
 import SpeciesStore from './speciesStore';
+import UserStore from './userStore'
 
 enableStaticRendering(typeof window === 'undefined');
 
@@ -15,6 +16,7 @@ interface IContextProps {
   pokemonStore: PokemonStore;
   toastStore: ToastStore;
   speciesStore: SpeciesStore;
+  userStore: UserStore;
 }
 
 export const StoreContext = createContext<IContextProps>({} as IContextProps);
@@ -42,6 +44,8 @@ function initializeStore(initialState: any = null) {
       pokemonStore: new PokemonStore(),
       toastStore: new ToastStore(),
       speciesStore: new SpeciesStore(),
+      userStore: new UserStore(),
+
     };
   }
 
@@ -50,6 +54,7 @@ function initializeStore(initialState: any = null) {
       pokemonStore: new PokemonStore(),
       toastStore: new ToastStore(),
       speciesStore: new SpeciesStore(),
+      userStore: new UserStore(),
     };
   }
 

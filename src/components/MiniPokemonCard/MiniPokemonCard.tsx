@@ -1,4 +1,4 @@
-import { Text } from '@components/Text/Text';
+import { Text } from 'components/Text/Text';
 import clsx from 'clsx';
 import { Question } from 'phosphor-react';
 import React, { AllHTMLAttributes, ReactNode } from 'react'
@@ -73,7 +73,7 @@ const MiniPokemonCardRoot = (props: MiniPokemonCardRootProps) => {
     const secondary = props.types[1] ? props.types[1].type.name : props.types[0].type.name
 
     return (
-            <div className={clsx(`flex flex-row h-[120px] rounded px-8 py-7 items-center justify-start gap-8 bg-gradient-to-r hover:from-pokemonTypes-${primary} hover:to-slowpoke-pink-800`, fromType[primary], toType[secondary])} {...props}>
+            <div className={clsx(`flex flex-row h-[120px] rounded px-8 py-7 items-center justify-start gap-8 bg-gradient-to-r hover:from-pokemonTypes-${primary} hover:to-slowpoke-pink-800 transition-colors`, fromType[primary], toType[secondary])} {...props}>
                 {props.children}
             </div>
     )

@@ -1,5 +1,5 @@
-import { Text } from '@components/Text/Text';
-import { TypeBox } from '@components/TypeBox';
+import { Text } from 'components/Text/Text';
+import { TypeBox } from 'components/TypeBox';
 import clsx from 'clsx';
 import React, { ReactNode } from 'react'
 import { Heading } from '../Heading/Heading';
